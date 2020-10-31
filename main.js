@@ -7,8 +7,8 @@ const ipc = electron.ipc
 let window;
 const createWindow =()=>{
     window = new electron.BrowserWindow({
-        width: 800,
-        height: 500,
+        width: 1200,
+        height: 650,
        webPreferences:{
            nodeIntegration: true,
            enableRemoteModule: true
@@ -18,7 +18,7 @@ const createWindow =()=>{
     window.on("closed", ()=>{
         window=null
     })
-    window.webContents.openDevTools({mode: "bottom"})
+    // window.webContents.openDevTools({mode: "bottom"})
 }
 electron.app.on("ready", createWindow)
 electron.app.on("window-all-closed", () => {

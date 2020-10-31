@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+
 import './App.css';
-const electron = window.require("electron")
+import React, {useEffect} from 'react'
+import {Header, Main, Authentication} from './Components'
+import {auth} from './backend/firebase'
+import {useSelector, useDispatch} from 'react-redux'
+import {setUser} from './actions'
+//const electron = window.require("electron")
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(authUser=>{
+        authUser? dispatch(setUser(authUser)): dispatch(setUser(null))
+    })
+    return () => {
+      unsubscribe()
+    }
+  }, [])
+  if(!user){
+     return (
+    <div className="app">
+       <Header/>
+       <div className="app__main">
+         <Main/>
+       </div>
     </div>
   );
+  }else{
+    return (
+      <div className="app">
+          <Authentication/>
+      </div>
+    )
+  }
+ 
 }
 
 export default App;
