@@ -13,6 +13,26 @@ body::-webkit-scrollbar {
 .app {
   width: 100vw;
   height: 100vh;
+  display: grid;
+  place-items: center;
+  color: white;
 }
-.app__main {
+.app > .MuiSvgIcon-root {
+  color: lightseagreen;
+  font-size: 90px;
+  animation: rotate 2s infinite linear;
+}
+.app > h1 {
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
